@@ -12,6 +12,7 @@ const paddle_height = 20;
 let leftArrow = false;
 let rightArrow = false;
 const ball_radius = 8;
+const left = 3; //game life
 
 //make line thick
 ctx.lineWidth = 2;
@@ -80,17 +81,48 @@ drawBall = () => {
     ctx.stroke();
     ctx.closePath();
 }
+//moveing the Gola
+moveBall = () => {
+    ball.x = ball.x + ball.dx;
+    ball.y = ball.y + ball.dy;
+}
+
+
+//collusion detection using ball and the border(wall)
+ballCollusion = () => {
+    if (ball.x + ball.radius > cvs.width || ball.x - ball.radius < 0) {
+        ball.dx = -ball.dx;
+    }
+    if (ball.y - ball.radius < 0) {
+        ball.dy = -ball.dy;
+    }
+    if (ball.y + ball.radius > cvs.height) {
+        left--;
+        resetBall();
+    }
+}
+//reset the ball
+function resetBall() {
+    ball.x = cvs.width / 2;
+    ball.y = paddle.y - ball_radius;
+    ball.dx = 3;
+    ball.dy = -3
+}
 
 //Draw function
 draw = () => {
     drawPaddle()
     drawBall();
 }
+
 // update function
 update = () => {
     dancePaddle()
+    moveBall()
+    ballCollusion()
     // paddle.y = paddle.y - 50;
 }
+
 //looping all elements
 loop = () => {
     //clear the canvas for displaying images
