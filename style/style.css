@@ -1,0 +1,34 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+#particles-js {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: absolute;
+  background-color: #12121c;
+}
+.main_container {
+  height: 100vh;
+  width : 100vw ; 
+  display: flex;
+  position : absolute;
+  top : 0px ;
+  left : 0px ; 
+  justify-content: center;
+  align-items: center;
+  z-index: 89;
+  color :  #98eb46cb; 
+  /* position: absolute; */
+  /* top: 50%; */
+  /* left: 50%; */
+  /* transform: translate(-50%, -50%); */
+}
+#canvas{
+  box-shadow: 5px -4px 10px 0px #fd3741d2,
+  -5px 4px 10px 0px  #98eb46cb;
+/* -webkit-box-shadow: -5px -2px 84px -12px rgba(226,205,205,0.7);
+-moz-box-shadow: -5px -2px 84px -12px rgba(226,205,205,0.7); */
+}
