@@ -172,10 +172,13 @@ ballCollusion = () => {
     }
     if (ball.y + ball.radius > cvs.height) {
         left--;
+<<<<<<< HEAD
         if (left <= 0 ){
             alert("game over"); 
             document.location.reload();
         }
+=======
+>>>>>>> bd74501e83f22ce1b0baf91905d0dc94c052ca35
         resetBall();
     }
 }
@@ -208,6 +211,7 @@ ballPaddleCollision = () => {
         paddle_hit.play();
     }
 }
+<<<<<<< HEAD
 
 
 // show game stats
@@ -233,12 +237,25 @@ draw = () => {
     showGameStats(score, 45, 480, SCORE_IMG, 10,460 );
     // SHOW LIVES
     showGameStats(left, cvs.width - 25, 480, LIFE_IMG, cvs.width-55, 460); 
+=======
+//Draw function
+draw = () => {
+    drawPaddle()
+    drawScore();
+    ballPaddleCollision()
+    drawBall();
+    drawBricks();
+>>>>>>> bd74501e83f22ce1b0baf91905d0dc94c052ca35
 }
 
 // update function
 update = () => {
     dancePaddle()
+<<<<<<< HEAD
     // drawScore();
+=======
+    drawScore();
+>>>>>>> bd74501e83f22ce1b0baf91905d0dc94c052ca35
     moveBall()
     collisionDetection();
     ballCollusion()
@@ -249,8 +266,13 @@ update = () => {
 //looping all elements
 loop = () => {
     //clear the canvas for displaying images
+<<<<<<< HEAD
     ctx.drawImage(bg_img, 0, 0)
     // ctx.clearRect(0, 0, 400, 500)
+=======
+    // ctx.drawImage(bg_img, 0, 0)
+    ctx.clearRect(0, 0, 400, 500)
+>>>>>>> bd74501e83f22ce1b0baf91905d0dc94c052ca35
     draw()
     update()
     requestAnimationFrame(loop)
