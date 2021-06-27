@@ -84,7 +84,7 @@ p {
 }
 nav{
  flex-direction:column:
- padding: 1rem;
+ padding: 1rem 1rem;
  text-align: center;
 }
 }
