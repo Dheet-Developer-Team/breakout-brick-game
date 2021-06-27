@@ -23,11 +23,11 @@ var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
 
 var bricks = [];
-for(var c=0; c<brickColumnCount; c++) {
-  bricks[c] = [];
-  for(var r=0; r<brickRowCount; r++) {
-    bricks[c][r] = { x: 0, y: 0, status: 1 };
-  }
+for (var c = 0; c < brickColumnCount; c++) {
+    bricks[c] = [];
+    for (var r = 0; r < brickRowCount; r++) {
+        bricks[c][r] = { x: 0, y: 0, status: 1 };
+    }
 }
 
 //make line thick
@@ -71,22 +71,22 @@ document.addEventListener("keyup", (event) => {
 })
 
 function drawBricks() {
-    for(var c=0; c<brickColumnCount; c++) {
-      for(var r=0; r<brickRowCount; r++) {
-        if(bricks[c][r].status == 1) {
-          var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
-          var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
-          bricks[c][r].x = brickX;
-          bricks[c][r].y = brickY;
-          ctx.beginPath();
-          ctx.rect(brickX, brickY, brickWidth, brickHeight);
-          ctx.fillStyle = "#0095DD";
-          ctx.fill();
-          ctx.closePath();
+    for (var c = 0; c < brickColumnCount; c++) {
+        for (var r = 0; r < brickRowCount; r++) {
+            if (bricks[c][r].status == 1) {
+                var brickX = (r * (brickWidth + brickPadding)) + brickOffsetLeft;
+                var brickY = (c * (brickHeight + brickPadding)) + brickOffsetTop;
+                bricks[c][r].x = brickX;
+                bricks[c][r].y = brickY;
+                ctx.beginPath();
+                ctx.rect(brickX, brickY, brickWidth, brickHeight);
+                ctx.fillStyle = "#0095DD";
+                ctx.fill();
+                ctx.closePath();
+            }
         }
-      }
     }
-  }
+}
 
 
 // draw paddle
@@ -125,18 +125,18 @@ moveBall = () => {
 }
 
 function collisionDetection() {
-    for(var c=0; c<brickColumnCount; c++) {
-      for(var r=0; r<brickRowCount; r++) {
-        var b = bricks[c][r];
-        if(b.status == 1) {
-          if(ball.x > b.x && ball.x < b.x+brickWidth && ball.y > b.y && ball.y < b.y+brickHeight) {
-            ball.dy = -ball.dy;
-            b.status = 0;
+    for (var c = 0; c < brickColumnCount; c++) {
+        for (var r = 0; r < brickRowCount; r++) {
+            var b = bricks[c][r];
+            if (b.status == 1) {
+                if (ball.x > b.x && ball.x < b.x + brickWidth && ball.y > b.y && ball.y < b.y + brickHeight) {
+                    ball.dy = -ball.dy;
+                    b.status = 0;
+                }
             }
         }
-      }
     }
-  }
+}
 
 //collusion detection using ball and the border(wall)
 ballCollusion = () => {
@@ -193,7 +193,8 @@ update = () => {
 //looping all elements
 loop = () => {
     //clear the canvas for displaying images
-    ctx.drawImage(bg_img, 0, 0)
+    // ctx.drawImage(bg_img, 0, 0)
+    ctx.clearRect(0, 0, 400, 500)
     draw()
     update()
     requestAnimationFrame(loop)
