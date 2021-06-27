@@ -83,7 +83,7 @@ p {
   font-size: 2rem;
 }
 nav{
- flex-direction:column:
+ flex-direction:column;
  padding: 1rem 1rem;
  text-align: center;
 }

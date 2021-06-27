@@ -12,7 +12,7 @@
 }
 .main_container {
   height: 100vh;
-<<<<<<< HEAD
+
   width : 100vw ; 
   display: flex;
   position : absolute;
@@ -26,10 +26,4 @@
 #canvas{
   box-shadow: 5px -4px 10px 0px #fd3741d2,
   -5px 4px 10px 0px  #98eb46cb;
-=======
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
->>>>>>> bd74501e83f22ce1b0baf91905d0dc94c052ca35
 }
