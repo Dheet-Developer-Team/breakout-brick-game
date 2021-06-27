@@ -15,10 +15,6 @@ let rightArrow = false;
 const ball_radius = 8;
 let left = 3; //game life
 
-<<<<<<< HEAD
-
-=======
->>>>>>> b14c136a447a8979febe4a76eea061e9f5745a87
 var brickRowCount = 4;
 var brickColumnCount = 3;
 var brickWidth = 75;
@@ -81,25 +77,15 @@ function mouseMoveHandler(e) {
     var relativeX = e.clientX - 485;
     console.log(relativeX, " ",cvs.width);
     if(relativeX > 0 && relativeX < cvs.width) {
-<<<<<<< HEAD
         paddle.x = relativeX - paddle_width/2;
-=======
-        paddle.x = relativeX - paddle_width/2; // paddle width problem 
->>>>>>> b14c136a447a8979febe4a76eea061e9f5745a87
     }
 }
 function drawBricks() {
     for(var c=0; c<brickColumnCount; c++) {
       for(var r=0; r<brickRowCount; r++) {
         if(bricks[c][r].status == 1) {
-<<<<<<< HEAD
           var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
           var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
-=======
-
-          var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft+10;
-          var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop+10;
->>>>>>> b14c136a447a8979febe4a76eea061e9f5745a87
           bricks[c][r].x = brickX;
           bricks[c][r].y = brickY;
           ctx.beginPath();
@@ -129,13 +115,8 @@ drawPaddle = () => {
 
 //danding the paddle
 dancePaddle = () => {
-<<<<<<< HEAD
 
     if (rightArrow && paddle.x + paddle.width < cvs.width) {
-=======
-    // stop it colliding 
-    if (rightArrow && paddle.x + paddle.width < (cvs.width-0) ) {
->>>>>>> b14c136a447a8979febe4a76eea061e9f5745a87
         paddle.x = paddle.x + paddle.dx;
     } else if (leftArrow && paddle.x > 0) {
         paddle.x = paddle.x - paddle.dx;
@@ -169,10 +150,7 @@ function collisionDetection() {
             ball.dy = -ball.dy;
             b.status = 0;
             score++;
-<<<<<<< HEAD
             brick_hit.play();
-=======
->>>>>>> b14c136a447a8979febe4a76eea061e9f5745a87
             if(score == brickRowCount*brickColumnCount) {
                 alert("YOU WIN, CONGRATULATIONS!");
                 document.location.reload();
@@ -188,26 +166,16 @@ function collisionDetection() {
 ballCollusion = () => {
     if (ball.x + ball.radius > cvs.width || ball.x - ball.radius < 0) {
         ball.dx = -ball.dx;
-<<<<<<< HEAD
-=======
-        
->>>>>>> b14c136a447a8979febe4a76eea061e9f5745a87
     }
     if (ball.y - ball.radius < 0) {
         ball.dy = -ball.dy;
     }
-<<<<<<< HEAD
     if (ball.y + ball.radius > cvs.height) {
         left--;
         if (left <= 0 ){
             alert("game over"); 
             document.location.reload();
         }
-=======
-    //  ball error 
-    if (ball.y + ball.radius > cvs.height - paddle_margin_bottom ) {
-        left--;
->>>>>>> b14c136a447a8979febe4a76eea061e9f5745a87
         resetBall();
     }
 }
@@ -237,17 +205,11 @@ ballPaddleCollision = () => {
 
         ball.dx = paddle_Vel+ball.speed * Math.sin(angle);
         ball.dy = -ball.dy * Math.cos(angle);
-<<<<<<< HEAD
         paddle_hit.play();
     }
 }
 
 
-=======
-    }
-}
-
->>>>>>> b14c136a447a8979febe4a76eea061e9f5745a87
 // show game stats
 function showGameStats(text, textX, textY, img, imgX, imgY){
     // draw text
@@ -260,12 +222,6 @@ function showGameStats(text, textX, textY, img, imgX, imgY){
 }
 
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> b14c136a447a8979febe4a76eea061e9f5745a87
 //Draw function
 draw = () => {
     drawPaddle()
@@ -273,23 +229,10 @@ draw = () => {
     ballPaddleCollision()
     drawBall();
     drawBricks();
-<<<<<<< HEAD
     // SHOW SCORE
     showGameStats(score, 45, 480, SCORE_IMG, 10,460 );
     // SHOW LIVES
     showGameStats(left, cvs.width - 25, 480, LIFE_IMG, cvs.width-55, 460); 
-=======
-    SCORE = 0  ;
-    LIFE = 3 ; 
-    LEVEL = 2 ; 
-
-    // SHOW SCORE
-    showGameStats(score, 45, 480, SCORE_IMG, 10,460 );
-    // SHOW LIVES
-    showGameStats(LIFE, cvs.width - 25, 480, LIFE_IMG, cvs.width-55, 460); 
-    // SHOW LEVEL
-    // showGameStats(LEVEL, cvs.width/2, 480, LEVEL_IMG, cvs.width/2 - 30, 5);
->>>>>>> b14c136a447a8979febe4a76eea061e9f5745a87
 }
 
 // update function
