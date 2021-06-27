@@ -81,4 +81,8 @@ p {
 .container h1 {
   font-size: 2rem;
 }
+nav{
+ flex-direction:column:
+ padding:1rem
+}
 }
