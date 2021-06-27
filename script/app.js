@@ -14,6 +14,22 @@ let rightArrow = false;
 const ball_radius = 8;
 let left = 3; //game life
 
+var brickRowCount = 4;
+var brickColumnCount = 3;
+var brickWidth = 75;
+var brickHeight = 20;
+var brickPadding = 10;
+var brickOffsetTop = 30;
+var brickOffsetLeft = 30;
+
+var bricks = [];
+for(var c=0; c<brickColumnCount; c++) {
+  bricks[c] = [];
+  for(var r=0; r<brickRowCount; r++) {
+    bricks[c][r] = { x: 0, y: 0, status: 1 };
+  }
+}
+
 //make line thick
 ctx.lineWidth = 2;
 
@@ -25,6 +41,17 @@ const paddle = {
     height: paddle_height,
     dx: 5,
 }
+
+//Gola creation(ball)
+const ball = {
+    x: cvs.width / 2,
+    y: paddle.y - ball_radius,
+    radius: ball_radius,
+    speed: 4,
+    dx: 3,
+    dy: -3,
+}
+
 
 //moveing the  paddle
 document.addEventListener("keydown", (event) => {
@@ -42,6 +69,25 @@ document.addEventListener("keyup", (event) => {
         rightArrow = false;
     }
 })
+
+function drawBricks() {
+    for(var c=0; c<brickColumnCount; c++) {
+      for(var r=0; r<brickRowCount; r++) {
+        if(bricks[c][r].status == 1) {
+          var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
+          var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
+          bricks[c][r].x = brickX;
+          bricks[c][r].y = brickY;
+          ctx.beginPath();
+          ctx.rect(brickX, brickY, brickWidth, brickHeight);
+          ctx.fillStyle = "#0095DD";
+          ctx.fill();
+          ctx.closePath();
+        }
+      }
+    }
+  }
+
 
 // draw paddle
 drawPaddle = () => {
@@ -61,15 +107,6 @@ dancePaddle = () => {
     }
 }
 
-//Gola creation(ball)
-const ball = {
-    x: cvs.width / 2,
-    y: paddle.y - ball_radius,
-    radius: ball_radius,
-    speed: 4,
-    dx: 3,
-    dy: -3,
-}
 
 // Gola drawing
 drawBall = () => {
@@ -87,6 +124,19 @@ moveBall = () => {
     ball.y = ball.y + ball.dy;
 }
 
+function collisionDetection() {
+    for(var c=0; c<brickColumnCount; c++) {
+      for(var r=0; r<brickRowCount; r++) {
+        var b = bricks[c][r];
+        if(b.status == 1) {
+          if(ball.x > b.x && ball.x < b.x+brickWidth && ball.y > b.y && ball.y < b.y+brickHeight) {
+            ball.dy = -ball.dy;
+            b.status = 0;
+            }
+        }
+      }
+    }
+  }
 
 //collusion detection using ball and the border(wall)
 ballCollusion = () => {
@@ -127,13 +177,16 @@ draw = () => {
     drawPaddle()
     ballPaddleCollision()
     drawBall();
+    drawBricks();
 }
 
 // update function
 update = () => {
     dancePaddle()
     moveBall()
+    collisionDetection();
     ballCollusion()
+    drawBricks();
     // paddle.y = paddle.y - 50;
 }
 
