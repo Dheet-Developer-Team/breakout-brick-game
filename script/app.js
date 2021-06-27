@@ -5,6 +5,7 @@ const ctx = cvs.getContext("2d")
 //add a border & color to canvas
 cvs.style.border = "0.5px solid #2c3e50";
 
+
 //all game variables
 const paddle_width = 100;
 const paddle_margin_bottom = 50;
@@ -21,6 +22,8 @@ var brickHeight = 20;
 var brickPadding = 10;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
+
+var score = 0;
 
 var bricks = [];
 for(var c=0; c<brickColumnCount; c++) {
@@ -52,7 +55,7 @@ const ball = {
     dy: -3,
 }
 
-
+document.addEventListener("mousemove", mouseMoveHandler, false);
 //moveing the  paddle
 document.addEventListener("keydown", (event) => {
     //37 or 39 is the keycode of left or right arrow
@@ -70,6 +73,12 @@ document.addEventListener("keyup", (event) => {
     }
 })
 
+function mouseMoveHandler(e) {
+    var relativeX = e.clientX - cvs.offsetLeft;
+    if(relativeX > 0 && relativeX < cvs.width) {
+        paddle.x = relativeX - paddleWidth/2;
+    }
+}
 function drawBricks() {
     for(var c=0; c<brickColumnCount; c++) {
       for(var r=0; r<brickRowCount; r++) {
@@ -88,10 +97,15 @@ function drawBricks() {
     }
   }
 
+  function drawScore() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Score: "+score, 8, 20);
+}
 
 // draw paddle
 drawPaddle = () => {
-    ctx.fillStyle = "#6FF20B";
+    ctx.fillStyle = "#tomato";
     ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
     ctx.strokeStyle = "#B10217";
     ctx.strokeRect(paddle.x, paddle.y, paddle.width, paddle.height);
@@ -100,6 +114,7 @@ drawPaddle = () => {
 
 //danding the paddle
 dancePaddle = () => {
+
     if (rightArrow && paddle.x + paddle.width < cvs.width) {
         paddle.x = paddle.x + paddle.dx;
     } else if (leftArrow && paddle.x > 0) {
@@ -132,6 +147,12 @@ function collisionDetection() {
           if(ball.x > b.x && ball.x < b.x+brickWidth && ball.y > b.y && ball.y < b.y+brickHeight) {
             ball.dy = -ball.dy;
             b.status = 0;
+            score++;
+            if(score == brickRowCount*brickColumnCount) {
+                alert("YOU WIN, CONGRATULATIONS!");
+                document.location.reload();
+                // clearInterval(interval); // Needed for Chrome to end game
+            }
             }
         }
       }
@@ -175,6 +196,7 @@ ballPaddleCollision = () => {
 //Draw function
 draw = () => {
     drawPaddle()
+    drawScore();
     ballPaddleCollision()
     drawBall();
     drawBricks();
@@ -183,6 +205,7 @@ draw = () => {
 // update function
 update = () => {
     dancePaddle()
+    drawScore();
     moveBall()
     collisionDetection();
     ballCollusion()
