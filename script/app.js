@@ -11,6 +11,7 @@ const paddle_margin_bottom = 50;
 const paddle_height = 20;
 let leftArrow = false;
 let rightArrow = false;
+const ball_radius = 8;
 
 //make line thick
 ctx.lineWidth = 2;
@@ -52,16 +53,38 @@ drawPaddle = () => {
 
 //danding the paddle
 dancePaddle = () => {
-    if (rightArrow) {
+    if (rightArrow && paddle.x + paddle.width < cvs.width) {
         paddle.x = paddle.x + paddle.dx;
-    } else if (leftArrow) {
+    } else if (leftArrow && paddle.x > 0) {
         paddle.x = paddle.x - paddle.dx;
     }
+}
+
+//Gola creation(ball)
+const ball = {
+    x: cvs.width / 2,
+    y: paddle.y - ball_radius,
+    radius: ball_radius,
+    speed: 4,
+    dx: 3,
+    dy: -3,
+}
+
+// Gola drawing
+drawBall = () => {
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    ctx.fillStyle = "#B10217";
+    ctx.fill();
+    ctx.strokeStyle = "#6FF20B";
+    ctx.stroke();
+    ctx.closePath();
 }
 
 //Draw function
 draw = () => {
     drawPaddle()
+    drawBall();
 }
 // update function
 update = () => {
