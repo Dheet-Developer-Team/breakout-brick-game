@@ -12,7 +12,7 @@ const paddle_height = 20;
 let leftArrow = false;
 let rightArrow = false;
 const ball_radius = 8;
-const left = 3; //game life
+let left = 3; //game life
 
 //make line thick
 ctx.lineWidth = 2;
@@ -105,13 +105,27 @@ ballCollusion = () => {
 function resetBall() {
     ball.x = cvs.width / 2;
     ball.y = paddle.y - ball_radius;
-    ball.dx = 3;
+    ball.dx = 3 * (Math.random() * 2 - 1)
     ball.dy = -3
+}
+
+//Ball and the paddle collision
+ballPaddleCollision = () => {
+    if (ball.x < paddle.x + paddle.width && ball.x > paddle.x && paddle.y < paddle.y + paddle.height && ball.y > paddle.y) {
+        let collPaddle = ball.x - (paddle.x + paddle.width / 2);
+        collPaddle = collPaddle / (paddle.width / 2)
+        //angle of the ball
+        let angle = collPaddle * Math.PI / 3;
+
+        ball.dx = ball.speed * Math.sin(angle);
+        ball.dy = -ball.dy * Math.cos(angle);
+    }
 }
 
 //Draw function
 draw = () => {
     drawPaddle()
+    ballPaddleCollision()
     drawBall();
 }
 
