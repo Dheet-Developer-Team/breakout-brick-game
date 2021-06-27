@@ -74,9 +74,10 @@ document.addEventListener("keyup", (event) => {
 })
 
 function mouseMoveHandler(e) {
-    var relativeX = e.clientX - cvs.offsetLeft;
+    var relativeX = e.clientX - 485;
+    console.log(relativeX, " ",cvs.width);
     if(relativeX > 0 && relativeX < cvs.width) {
-        paddle.x = relativeX - paddleWidth/2;
+        paddle.x = relativeX - paddle_width/2;
     }
 }
 function drawBricks() {
@@ -105,11 +106,11 @@ function drawBricks() {
 
 // draw paddle
 drawPaddle = () => {
-    ctx.fillStyle = "#tomato";
-    ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
-    ctx.strokeStyle = "#B10217";
-    ctx.strokeRect(paddle.x, paddle.y, paddle.width, paddle.height);
-
+    // ctx.fillStyle = "tomato";
+    // ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
+    // ctx.strokeStyle = "#B10217";
+    // ctx.strokeRect(paddle.x, paddle.y, paddle.width, paddle.height);
+    ctx.drawImage(paddle_img,paddle.x,paddle.y);
 }
 
 //danding the paddle
@@ -125,13 +126,14 @@ dancePaddle = () => {
 
 // Gola drawing
 drawBall = () => {
-    ctx.beginPath();
-    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-    ctx.fillStyle = "#B10217";
-    ctx.fill();
-    ctx.strokeStyle = "#6FF20B";
-    ctx.stroke();
-    ctx.closePath();
+    // ctx.beginPath();
+    // ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    // ctx.fillStyle = "#B10217";
+    // ctx.fill();
+    // ctx.strokeStyle = "#6FF20B";
+    // ctx.stroke();
+    // ctx.closePath();
+    ctx.drawImage(ball_img,ball.x,ball.y);
 }
 //moveing the Gola
 moveBall = () => {
@@ -183,16 +185,23 @@ function resetBall() {
 //Ball and the paddle collision
 ballPaddleCollision = () => {
     if (ball.x < paddle.x + paddle.width && ball.x > paddle.x && paddle.y < paddle.y + paddle.height && ball.y > paddle.y) {
+        
+        let paddle_Vel=0;
+        if(leftArrow)
+            paddle_Vel=-paddle.dx;
+        if(rightArrow)
+            paddle_Vel=paddle.dx;
+        if(!leftArrow&&!rightArrow)
+            paddle_Vel=0;
         let collPaddle = ball.x - (paddle.x + paddle.width / 2);
         collPaddle = collPaddle / (paddle.width / 2)
         //angle of the ball
         let angle = collPaddle * Math.PI / 3;
 
-        ball.dx = ball.speed * Math.sin(angle);
+        ball.dx = paddle_Vel+ball.speed * Math.sin(angle);
         ball.dy = -ball.dy * Math.cos(angle);
     }
 }
-
 //Draw function
 draw = () => {
     drawPaddle()
@@ -216,7 +225,8 @@ update = () => {
 //looping all elements
 loop = () => {
     //clear the canvas for displaying images
-    ctx.drawImage(bg_img, 0, 0)
+    // ctx.drawImage(bg_img, 0, 0)
+    ctx.clearRect(0, 0, 400, 500)
     draw()
     update()
     requestAnimationFrame(loop)
