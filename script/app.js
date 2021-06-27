@@ -150,6 +150,7 @@ function collisionDetection() {
             ball.dy = -ball.dy;
             b.status = 0;
             score++;
+            brick_hit.play();
             if(score == brickRowCount*brickColumnCount) {
                 alert("YOU WIN, CONGRATULATIONS!");
                 document.location.reload();
@@ -200,6 +201,7 @@ ballPaddleCollision = () => {
 
         ball.dx = paddle_Vel+ball.speed * Math.sin(angle);
         ball.dy = -ball.dy * Math.cos(angle);
+        paddle_hit.play();
     }
 }
 //Draw function
