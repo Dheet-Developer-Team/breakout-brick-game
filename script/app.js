@@ -233,11 +233,11 @@ draw = () => {
     LEVEL = 2 ; 
 
     // SHOW SCORE
-    showGameStats(score, 35, 25, SCORE_IMG, 5, 5);
+    showGameStats(score, 45, 480, SCORE_IMG, 10,460 );
     // SHOW LIVES
-    showGameStats(LIFE, cvs.width - 25, 25, LIFE_IMG, cvs.width-55, 5); 
+    showGameStats(LIFE, cvs.width - 25, 480, LIFE_IMG, cvs.width-55, 460); 
     // SHOW LEVEL
-    showGameStats(LEVEL, cvs.width/2, 25, LEVEL_IMG, cvs.width/2 - 30, 5);
+    // showGameStats(LEVEL, cvs.width/2, 480, LEVEL_IMG, cvs.width/2 - 30, 5);
 }
 
 // update function
